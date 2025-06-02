@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Senarai Kehadiran</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    button {
+      margin-top: 10px;
+      margin-bottom: 30px;
+      padding: 8px 14px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Keputusan Kehadiran</h1>
+
+  <h2>Hadir</h2>
+  <ol id="present-list"></ol>
+  <button onclick="copyList('present-list')">Copy Hadir</button>
+
+  <h2>Tidak Hadir</h2>
+  <ol id="absent-list"></ol>
+  <button onclick="copyList('absent-list')">Copy Tidak Hadir</button>
+
+  <script>
+    const present = JSON.parse(localStorage.getItem("presentList")) || [];
+    const absent = JSON.parse(localStorage.getItem("absentList")) || [];
+
+    const presentList = document.getElementById("present-list");
+    const absentList = document.getElementById("absent-list");
+
+    present.forEach(name => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      presentList.appendChild(li);
+    });
+
+    absent.forEach(entry => {
+      const li = document.createElement("li");
+      li.textContent = `${entry.name} (${entry.reason})`;
+      absentList.appendChild(li);
+    });
+
+    function copyList(id) {
+      const items = Array.from(document.getElementById(id).querySelectorAll("li"))
+        .map(li => li.textContent).join("\n");
+      navigator.clipboard.writeText(items);
+      alert("Copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
