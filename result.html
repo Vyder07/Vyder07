@@ -3,21 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Senarai Kehadiran</title>
   <style>
     body {
       font-family: sans-serif;
-      margin: 40px;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
     }
 
-    h2 {
-      margin-top: 30px;
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    ul {
-      list-style: none;
+    h1, h2 {
+      margin-top: 20px;
+    }
+
+    ol {
+      list-style: decimal inside;
       padding-left: 0;
+      margin-left: 0;
     }
 
     li {
@@ -27,29 +37,38 @@
     button {
       margin-top: 10px;
       margin-bottom: 30px;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border: none;
       background-color: #007bff;
       color: white;
       border-radius: 5px;
       cursor: pointer;
+      width: 100%;
     }
 
     button:hover {
       background-color: #0056b3;
     }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Keputusan Kehadiran</h1>
+  <div class="container">
+    <h1>Keputusan Kehadiran</h1>
 
-  <h2>Hadir</h2>
-  <ol id="present-list"></ol>
-  <button onclick="copyList('present-list')">Copy Hadir</button>
+    <h2>Hadir</h2>
+    <ol id="present-list"></ol>
+    <button onclick="copyList('present-list')">Copy Hadir</button>
 
-  <h2>Tidak Hadir</h2>
-  <ol id="absent-list"></ol>
-  <button onclick="copyList('absent-list')">Copy Tidak Hadir</button>
+    <h2>Tidak Hadir</h2>
+    <ol id="absent-list"></ol>
+    <button onclick="copyList('absent-list')">Copy Tidak Hadir</button>
+  </div>
 
   <script>
     const present = JSON.parse(localStorage.getItem("presentList")) || [];
