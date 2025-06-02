@@ -2,73 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Senarai Kehadiran</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f7f7f7;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 16px;
+      max-width: 100%;
+      background-color: #f9f9f9;
     }
 
     h1, h2 {
-      margin-top: 20px;
+      font-size: 1.4em;
+      margin-bottom: 10px;
+      color: #333;
     }
 
     ol {
-      list-style: decimal inside;
+      list-style-position: inside;
       padding-left: 0;
-      margin-left: 0;
+      margin-bottom: 20px;
     }
 
     li {
+      font-size: 1em;
       margin-bottom: 6px;
+      word-wrap: break-word;
     }
 
     button {
-      margin-top: 10px;
-      margin-bottom: 30px;
-      padding: 10px 16px;
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 10px auto 20px;
+      padding: 10px;
       border: none;
       background-color: #007bff;
       color: white;
       border-radius: 5px;
+      font-size: 1em;
       cursor: pointer;
-      width: 100%;
     }
 
     button:hover {
       background-color: #0056b3;
     }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 15px;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Keputusan Kehadiran</h1>
+  <h1>Keputusan Kehadiran</h1>
 
-    <h2>Hadir</h2>
-    <ol id="present-list"></ol>
-    <button onclick="copyList('present-list')">Copy Hadir</button>
+  <h2>Hadir</h2>
+  <ol id="present-list"></ol>
+  <button onclick="copyList('present-list')">Copy Hadir</button>
 
-    <h2>Tidak Hadir</h2>
-    <ol id="absent-list"></ol>
-    <button onclick="copyList('absent-list')">Copy Tidak Hadir</button>
-  </div>
+  <h2>Tidak Hadir</h2>
+  <ol id="absent-list"></ol>
+  <button onclick="copyList('absent-list')">Copy Tidak Hadir</button>
 
   <script>
     const present = JSON.parse(localStorage.getItem("presentList")) || [];
@@ -91,7 +86,7 @@
 
     function copyList(id) {
       const items = Array.from(document.getElementById(id).querySelectorAll("li"))
-        .map(li => li.textContent).join("\n");
+        .map((li, index) => `${index + 1}. ${li.textContent}`).join("\n");
       navigator.clipboard.writeText(items);
       alert("Copied to clipboard!");
     }
