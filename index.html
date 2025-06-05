@@ -3,14 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Sistem Kehadiran Pelajar</title>
   <link rel="stylesheet" href="sistem2.css" />
+   <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
+  
   <h1>Sistem Kehadiran Pelajar</h1>
   <h2> Kelas = 4B </h2>
+
+  <!-- Kalendar-->
+   <div class="date-section" style="margin-bottom: 20px;">
+   <label for="attendance-date"><strong>PILIH TARIKH KEHADIRAN:</strong></label>
+      <input type="text" id="attendance-date" placeholder="dd/mm/yyyy" />
+      </div>
+
+  <!-- Senarai Pelajar-->
   <div id="student-list"></div>
   <button id="submit-attendance">Submit</button>
+
+  <!--  Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!--Activate flatpickr-->
+  <script>
+flatpickr("#attendance-date", {
+  dateFormat: "d/m/Y"
+});
+
+  // Set placeholder ikut tarikh hari ini
+    const inputTarikh = document.getElementById("attendance-date");
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  inputTarikh.placeholder = `${dd}/${mm}/${yyyy}`;
+</script>
+
+<!--Javascript file-->
   <script src="sistem2.js"></script>
 </body>
 </html>
