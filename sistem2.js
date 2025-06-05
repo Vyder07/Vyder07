@@ -43,22 +43,38 @@ students.forEach(name => {
 
   const checkbox = div.querySelector("input");
 
-  checkbox.addEventListener("change", () => {
-    if (!checkbox.checked) {
-      const reason = prompt(`Kenapa ${name} tidak hadir?`, "Sweet Dreams");
-      if (!reason) {
-        checkbox.checked = true;
-        return;
+  checkbox.addEventListener("change", async () => {
+  if (!checkbox.checked) {
+    const { value: reason } = await Swal.fire({
+      title: `Kenapa ${name} tidak hadir?`,
+      input: 'text',
+      inputLabel: 'Sila tulis sebab',
+      inputPlaceholder: 'Masukkan sebab ketidakhadiran',
+      showCancelButton: true,
+      cancelButtonText: 'Batal',
+      confirmButtonText: 'Simpan',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Sebab tidak boleh kosong!'
+        }
       }
-      div.classList.remove("present");
-      div.classList.add("absent");
-      absentReasons[name] = reason;
-    } else {
-      div.classList.remove("absent");
-      div.classList.add("present");
-      delete absentReasons[name];
+    });
+
+    if (!reason) {
+      checkbox.checked = true;  // kalau batal atau kosong, tak jadi tukar
+      return;
     }
-  });
+
+    div.classList.remove("present");
+    div.classList.add("absent");
+    absentReasons[name] = reason;
+  } else {
+    div.classList.remove("absent");
+    div.classList.add("present");
+    delete absentReasons[name];
+  }
+});
+
 
   studentListDiv.appendChild(div);
 });
