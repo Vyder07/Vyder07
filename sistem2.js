@@ -113,12 +113,14 @@ fetch("https://script.google.com/macros/s/PASTE_DEPLOYMENT_URL_AWAK_HERE/exec", 
 const html = `
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hasil Kehadiran</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body { font-family: sans-serif; padding: 20px; }
     h2 { margin-top: 30px; }
     ol { margin-left: 20px; }
+
     button {
       margin-top: 20px;
       padding: 8px 12px;
@@ -126,8 +128,12 @@ const html = `
       font-weight: 600;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
+
+
   <h1>Hasil Kehadiran</h1>
   <h2>Hadir (${present.length})</h2>
   <ol id="present-list">${present.map(n => `<li>${n}</li>`).join("")}</ol>
@@ -144,10 +150,10 @@ const html = `
       const text = items.map(function(li, index) {
         return (index + 1) + ". " + li.textContent;
       }).join("\\n");
-      navigator.clipboard.writeText(text).then(function() {
-        alert("Disalin ke clipboard!");
+      navigator.clipboard.writeText(text).then(() => {
+        Swal.fire("Berjaya Disalin!", "Senarai telah disalin ke clipboard.", "success");
       }).catch(function(err) {
-        alert("Gagal salin: " + err);
+        Swal.fire("Ralat!", "Gagal salin: " + err, "error");
       });
     }
 
@@ -165,5 +171,6 @@ const html = `
 const resultTab = window.open("", "_blank");
 resultTab.document.write(html);
 resultTab.document.close();
+
 
 });
