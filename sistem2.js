@@ -113,6 +113,7 @@ fetch("https://script.google.com/macros/s/PASTE_DEPLOYMENT_URL_AWAK_HERE/exec", 
 const html = `
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hasil Kehadiran</title>
   <style>
     body { font-family: sans-serif; padding: 20px; }
