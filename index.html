@@ -3,260 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>eKehadiran Pelajar</title>
   <link rel="stylesheet" href="sistem2.css" />
-   <!-- Flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+  
 
-  <!-- Animated litepage background copied from test/litepage.html -->
-  <div class="area">
-    <ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+<!-- BACKGROUND UNGU ANIMATED -->
+<div class="area">
+  <ul class="circles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
+</div>
+
+<div class="page-container">
+  <h1>eKehadiran Pelajar</h1>
+  <h2>Kelas = 5B</h2>
+
+  <!-- Kalendar -->
+  <div class="date-section" style="margin-bottom: 20px;">
+    <label for="attendance-date"><strong>PILIH TARIKH KEHADIRAN:</strong></label>
+    <input type="text" id="attendance-date" placeholder="dd/mm/yyyy" />
   </div>
 
-  <style>
-  @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
-
-  /* Litepage animated background styles */
-  .area{
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
-    background: linear-gradient(to left, #8f94fb, #4e54c8);
-    width: 100%;
-    height:100vh;
-    position: fixed;
-    top: 0; left: 0; right:0; bottom:0;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .circles{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .circles li{
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.12);
-    animation: animate 25s linear infinite;
-    bottom: -150px;
-  }
-
-  .circles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-  .circles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-  .circles li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-  .circles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-  .circles li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-  .circles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-  .circles li:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-  .circles li:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-  .circles li:nth-child(9){ left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-  .circles li:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
-
-  @keyframes animate {
-    0%{ transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
-    100%{ transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
-  }
-
-  /* Page container sits above background */
-  .page-container{
-    position: relative;
-    z-index: 1;
-    max-width: 980px;
-    margin: 40px auto;
-    background: rgba(255,255,255,0.88);
-    padding: 26px;
-    border-radius: 12px;
-    box-shadow: 0 12px 40px rgba(16,40,90,0.12);
-  }
-
-  body {
-  font-family: sans-serif;
-  margin: 40px;
-}
-
-.student {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.student.present {
-  background-color: #d4edda; /* green */
-}
-
-.student.absent {
-  background-color: #f8d7da; /* red */
-}
-
-.student span {
-  flex: 1;
-  font-weight: 600;
-}
-
-/* Toggle Switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 28px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0;
-  right: 0; bottom: 0;
-  background-color: #f44336;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px; width: 20px;
-  left: 4px; bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #4CAF50;
-}
-
-input:checked + .slider:before {
-  transform: translateX(22px);
-}
-
-button {
-  margin: 20px auto 0 auto; /* auto kiri kanan */
-  padding: 10px 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: #1478e3;
-  color: white;
-  display: block; /* penting supaya margin auto berfungsi */
-}
-
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.flatpickr-input {
-  font-size: 1.2em;
-  padding: 10px;
-  border: 2px solid #44e076;
-  border-radius: 8px;
-  width: 200px;
-  
-}
-.copy-btn {
-  background: linear-gradient(to right, #00b09b, #96c93d);
-  border-radius: 12px;
-  padding: 12px 20px;
-  font-weight: 600;
-  font-size: 1em;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.copy-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.copy-btn:active {
-  transform: scale(0.97);
-}
-
-
-h1 {
-  text-align: center;
-  font-family: consolas;
-}
-
-h2 {
-  text-align:center;
-  font-family: consolas;
-}
-
-  </style>
-  
-  <div class="page-container">
-  <h1>eKehadiran Pelajar</h1>
-  <h2> Kelas = 5B </h2>
-
-  <!-- Kalendar-->
-   <div class="date-section" style="margin-bottom: 20px;">
-   <label for="attendance-date"><strong>PILIH TARIKH KEHADIRAN:</strong></label>
-      <input type="text" id="attendance-date" placeholder="dd/mm/yyyy" />
-      </div>
-
-  <!-- Senarai Pelajar-->
+  <!-- Senarai Pelajar -->
   <div id="student-list"></div>
   <button id="submit-attendance">Submit</button>
+</div>
 
-  <!--  Flatpickr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
 
-  <!--Activate flatpickr-->
-  <script>
-flatpickr("#attendance-date", {
-  dateFormat: "d/m/Y"
-});
+/* ANIMATED BACKGROUND */
+.area{
+  background: linear-gradient(to left, #8f94fb, #4e54c8);
+  width: 100%;
+  height:100vh;
+  position: fixed;
+  top: 0; left: 0; right:0; bottom:0;
+  z-index: 0;
+  overflow: hidden;
+}
+.circles{
+  position: absolute; top:0; left:0;
+  width:100%; height:100%; overflow:hidden; z-index:0;
+}
+.circles li{
+  position: absolute; display: block; list-style: none;
+  width: 20px; height: 20px;
+  background: rgba(255,255,255,0.12);
+  animation: animate 25s linear infinite; bottom:-150px;
+}
+.circles li:nth-child(1){ left:25%; width:80px; height:80px; animation-delay:0s;}
+.circles li:nth-child(2){ left:10%; width:20px; height:20px; animation-delay:2s; animation-duration:12s;}
+.circles li:nth-child(3){ left:70%; width:20px; height:20px; animation-delay:4s;}
+.circles li:nth-child(4){ left:40%; width:60px; height:60px; animation-delay:0s; animation-duration:18s;}
+.circles li:nth-child(5){ left:65%; width:20px; height:20px; animation-delay:0s;}
+.circles li:nth-child(6){ left:75%; width:110px; height:110px; animation-delay:3s;}
+.circles li:nth-child(7){ left:35%; width:150px; height:150px; animation-delay:7s;}
+.circles li:nth-child(8){ left:50%; width:25px; height:25px; animation-delay:15s; animation-duration:45s;}
+.circles li:nth-child(9){ left:20%; width:15px; height:15px; animation-delay:2s; animation-duration:35s;}
+.circles li:nth-child(10){ left:85%; width:150px; height:150px; animation-delay:0s; animation-duration:11s;}
+@keyframes animate {
+  0%{ transform: translateY(0) rotate(0deg); opacity:1; border-radius:0; }
+  100%{ transform: translateY(-1000px) rotate(720deg); opacity:0; border-radius:50%; }
+}
 
-  // Set placeholder ikut tarikh hari ini
-    const inputTarikh = document.getElementById("attendance-date");
-  const today = new Date();
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const yyyy = today.getFullYear();
-  inputTarikh.placeholder = `${dd}/${mm}/${yyyy}`;
-</script>
+body {
+  font-family: 'Exo', sans-serif;
+  margin: 40px;
+  background: linear-gradient(to left, #8f94fb, #4e54c8);
+}
 
-<!--CDN sweetalert2-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+h1, h2 {
+  font-family: 'Exo', sans-serif;
+  text-align: center;
+}
 
-  <!--Javascript file-->
-  </div> <!-- /.page-container -->
-  <script>
-    const students = [
-    "MUHAMMAD FARHAN BIN IBRAHIM",
+
+/* PAGE CONTENT */
+.page-container{
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 40px auto;
+  background: rgba(255,255,255,0.88);
+  padding: 26px;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(16,40,90,0.12);
+}
+
+/* STUDENT LIST */
+.student { display:flex; align-items:center; margin-bottom:10px; padding:10px 16px; border-radius:8px; transition: background-color 0.3s; }
+.student.present{ background-color:#d4edda; }
+.student.absent{ background-color:#f8d7da; }
+.student span{ flex:1; font-weight:600; }
+
+/* TOGGLE */
+.switch{ position: relative; display:inline-block; width:50px; height:28px; }
+.switch input{ opacity:0; width:0; height:0; }
+.slider{ position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#f44336; transition:0.4s; border-radius:34px; }
+.slider:before{ position:absolute; content:""; height:20px; width:20px; left:4px; bottom:4px; background-color:white; transition:0.4s; border-radius:50%; }
+input:checked + .slider{ background-color:#4CAF50; }
+input:checked + .slider:before{ transform:translateX(22px); }
+
+button{ margin:20px auto 0 auto; padding:10px 18px; font-weight:bold; border:none; border-radius:6px; cursor:pointer; background-color:#1478e3; color:white; display:block; }
+button:hover{ background-color:#0056b3; }
+
+.flatpickr-input{ font-size:1.2em; padding:10px; border:2px solid #44e076; border-radius:8px; width:200px; }
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+flatpickr("#attendance-date", { dateFormat:"d/m/Y" });
+
+// placeholder tarikh hari ini
+const inputTarikh = document.getElementById("attendance-date");
+const today = new Date();
+const dd = String(today.getDate()).padStart(2,'0');
+const mm = String(today.getMonth()+1).padStart(2,'0');
+const yyyy = today.getFullYear();
+inputTarikh.placeholder = `${dd}/${mm}/${yyyy}`;
+
+const students = [
+  "MUHAMMAD FARHAN BIN IBRAHIM",
   "MUHAMMAD HAMZAH BIN FAIRULZAMLY",
   "MUHAMMAD IDHAM BIN MAD SHATAL",
   "MUHAMMAD IQBAL BIN SABRI",
@@ -286,121 +159,70 @@ flatpickr("#attendance-date", {
 const studentListDiv = document.getElementById("student-list");
 const absentReasons = {};
 
-students.forEach(name => {
+students.forEach(name=>{
   const div = document.createElement("div");
-  div.className = "student present";
-
-  div.innerHTML = `
-    <span>${name}</span>
+  div.className="student present";
+  div.innerHTML = `<span>${name}</span>
     <label class="switch">
       <input type="checkbox" checked>
       <span class="slider"></span>
-    </label>
-  `;
-
+    </label>`;
   const checkbox = div.querySelector("input");
-
-  checkbox.addEventListener("change", async () => {
-  if (!checkbox.checked) {
-    const { value: reason } = await Swal.fire({
-      title: `Kenapa ${name} tidak hadir?`,
-      input: 'text',
-      inputLabel: 'Sila tulis sebab',
-      inputPlaceholder: 'Masukkan sebab ketidakhadiran',
-      showCancelButton: true,
-      cancelButtonText: 'Batal',
-      confirmButtonText: 'Ok',
-      inputValidator: (value) => {
-        if (!value) {
-          return 'Sebab tidak boleh kosong!'
-        }
-      }
-    });
-
-    if (!reason) {
-      checkbox.checked = true;  // kalau batal atau kosong, tak jadi tukar
-      return;
+  checkbox.addEventListener("change", async ()=>{
+    if(!checkbox.checked){
+      const { value: reason } = await Swal.fire({
+        title:`Kenapa ${name} tidak hadir?`,
+        input:'text',
+        inputLabel:'Sila tulis sebab',
+        inputPlaceholder:'Masukkan sebab ketidakhadiran',
+        showCancelButton:true,
+        cancelButtonText:'Batal',
+        confirmButtonText:'Ok',
+        inputValidator:(value)=>{ if(!value) return 'Sebab tidak boleh kosong!'; }
+      });
+      if(!reason){ checkbox.checked=true; return; }
+      div.classList.remove("present"); div.classList.add("absent");
+      absentReasons[name]=reason;
+    } else {
+      div.classList.remove("absent"); div.classList.add("present");
+      delete absentReasons[name];
     }
-
-    div.classList.remove("present");
-    div.classList.add("absent");
-    absentReasons[name] = reason;
-  } else {
-    div.classList.remove("absent");
-    div.classList.add("present");
-    delete absentReasons[name];
-  }
-});
-
-
+  });
   studentListDiv.appendChild(div);
 });
 
-document.getElementById("submit-attendance").addEventListener("click", async () => {
-  // Ask for confirmation using SweetAlert2 before submitting
+document.getElementById("submit-attendance").addEventListener("click", async ()=>{
   const confirmation = await Swal.fire({
-    title: 'Submit result?',
-    text: 'This will lead to the result page.',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, submit',
-    cancelButtonText: 'Cancel'
+    title:'Submit result?',
+    text:'This will lead to the result page.',
+    icon:'question',
+    showCancelButton:true,
+    confirmButtonText:'Yes, submit',
+    cancelButtonText:'Cancel'
   });
+  if(!confirmation.isConfirmed) return;
 
-  if (!confirmation.isConfirmed) {
-    return; // user cancelled
-  }
-
-  // original submit logic
-  const present = [];
-  const absentStrings = []; // for Google Sheets compatibility (strings)
-  const absentObjects = []; // structured for result.html (name + reason)
-
-  document.querySelectorAll(".student").forEach(div => {
-    const name = div.querySelector("span").textContent;
-    const checkbox = div.querySelector("input");
-    if (checkbox.checked) {
-      present.push(name);
-    } else {
-      const reason = absentReasons[name] || "Tiada sebab";
-      absentStrings.push(`${name} (${reason})`);
-      absentObjects.push({ name, reason });
+  const present=[]; const absentObjects=[];
+  document.querySelectorAll(".student").forEach(div=>{
+    const name=div.querySelector("span").textContent;
+    const checkbox=div.querySelector("input");
+    if(checkbox.checked) present.push(name);
+    else{
+      const reason=absentReasons[name] || "Tiada sebab";
+      absentObjects.push({name,reason});
     }
   });
 
-  // Hantar ke Google Sheets (send string representation for sheet)
-  try {
-    fetch("https://script.google.com/macros/s/PASTE_DEPLOYMENT_URL_AWAK_HERE/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        date: new Date().toLocaleString(),
-        present,
-        absent: absentStrings
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(res => res.text())
-    .then(res => console.log("Response Google Sheet:", res))
-    .catch(err => console.error("Ralat semasa hantar ke Google Sheet:", err));
-  } catch (e) {
-    console.warn('Fetch error:', e);
-  }
-
-  // Save to localStorage so the existing result.html can read it
-  try {
+  // simpan ke localStorage termasuk tarikh
+  try{
     localStorage.setItem('presentList', JSON.stringify(present));
     localStorage.setItem('absentList', JSON.stringify(absentObjects));
-  } catch (e) {
-    console.warn('Gagal menulis ke localStorage:', e);
-  }
+    localStorage.setItem('attendanceDate', inputTarikh.value || inputTarikh.placeholder);
+  }catch(e){console.warn(e);}
 
-  // Open the actual result.html page in the same tab (it will read localStorage)
-  window.location.href = 'result.html';
-
+  window.location.href='result.html';
 });
+</script>
 
-  </script>
 </body>
 </html>
