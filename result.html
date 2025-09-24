@@ -1,242 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Senarai Kehadiran</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senarai Kehadiran</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
-    .area{
-      background: linear-gradient(to left, #8f94fb, #4e54c8);
-      width: 100%;
-      height:100vh;
-      position: fixed;
-      top: 0; left: 0; right:0; bottom:0;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .circles{ position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0 }
-    .circles li{
-      position: absolute;
-      display: block;
-      list-style: none;
-      width: 20px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.12);
-      animation: animate 25s linear infinite;
-      bottom: -150px;
-    }
-    .circles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-    .circles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-    .circles li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-    .circles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-    .circles li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-    .circles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-    .circles li:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-    .circles li:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-    .circles li:nth-child(9){ left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-    .circles li:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+  /* Animated background ungu */
+  .area {
+    background: linear-gradient(to left, #8f94fb, #4e54c8);
+    width: 100%; height: 100vh;
+    position: fixed; top: 0; left: 0; right:0; bottom:0;
+    z-index: 0; overflow: hidden;
+  }
+  .circles { position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0; }
+  .circles li {
+    position: absolute; display:block; list-style:none;
+    width: 20px; height:20px; background: rgba(255,255,255,0.12);
+    animation: animate 25s linear infinite; bottom:-150px;
+  }
+  .circles li:nth-child(1){ left:25%; width:80px; height:80px; animation-delay:0s; }
+  .circles li:nth-child(2){ left:10%; width:20px; height:20px; animation-delay:2s; animation-duration:12s; }
+  .circles li:nth-child(3){ left:70%; width:20px; height:20px; animation-delay:4s; }
+  .circles li:nth-child(4){ left:40%; width:60px; height:60px; animation-delay:0s; animation-duration:18s; }
+  .circles li:nth-child(5){ left:65%; width:20px; height:20px; animation-delay:0s; }
+  .circles li:nth-child(6){ left:75%; width:110px; height:110px; animation-delay:3s; }
+  .circles li:nth-child(7){ left:35%; width:150px; height:150px; animation-delay:7s; }
+  .circles li:nth-child(8){ left:50%; width:25px; height:25px; animation-delay:15s; animation-duration:45s; }
+  .circles li:nth-child(9){ left:20%; width:15px; height:15px; animation-delay:2s; animation-duration:35s; }
+  .circles li:nth-child(10){ left:85%; width:150px; height:150px; animation-delay:0s; animation-duration:11s; }
+  @keyframes animate {
+    0%{ transform: translateY(0) rotate(0deg); opacity:1; border-radius:0; }
+    100%{ transform: translateY(-1000px) rotate(720deg); opacity:0; border-radius:50%; }
+  }
 
-    @keyframes animate {
-      0%{ transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
-      100%{ transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
-    }
-
+  /* Page content */
+  body { font-family:sans-serif; margin:0; z-index:1; position:relative; }
   .page-container {
-  position: relative;
-  z-index: 1;
-  max-width: 980px;
-  margin: 24px auto;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(16,40,90,0.08);
-  border: 1px solid rgba(0,0,0,0.08);
-  background: rgba(255, 244, 244, 0.4); /* lebih transparent */
-  border-radius: 12px; /* corner rounding */
-  backdrop-filter: blur(6px); /* efek frosted glass (optional, boleh buang) */
-}
+    position: relative; z-index: 1;
+    max-width:980px; margin:24px auto; padding:20px;
+    background:rgba(255,244,244,0.4); box-shadow:0 10px 30px rgba(16,40,90,0.08);
+    border-radius:12px; backdrop-filter:blur(6px);
+  }
 
-
-
-
-    :root{
-      --muted:#666;
-    }
-
-    body {
-      font-family: system-ui, Arial;
-      margin: 24px;
-      background: linear-gradient(180deg,#eef6ff 0%, #ffffff 100%);
-      color: #222;
-    }
-
-    /* Hm, copilot AI says it has reached limit so I have to be on my own now */
-    /* Let's make it look nice but simple */
-    /* copilot, are you there? */
-    /* seems like copilot is gone, let's continue */
-    /* maybe i have to wait for a month to use it again ;( */
-    
-    .layout {
-      display: flex;
-      gap: 20px;
-      align-items: start;
-      justify-content: center;
-      margin-top: 18px;
-      flex-wrap: wrap;
-    }
-
-    .box {
-  background: rgba(255, 255, 255, 0.7); /* putih dengan 70% opacity */
-  padding: 18px;
-  width: 420px;
-  max-height: 60vh;
-  overflow: auto;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 0;
-}
-
-
-    .box .count { color: var(--muted); font-size: 0.9rem; margin-top: 6px }
-
-    ol { padding-left: 20px; margin: 8px 0 0 0 }
-    li { margin-bottom: 8px; }
-
-    .controls {
-      display:flex;
-      justify-content:center;
-      gap: 20px;
-      margin-top:22px;
-    }
-
-    .copy-btn {
-      background: rgb(39, 221, 39);
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      /* buang rounding */
-      border-radius: 0;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .copy-btn:active{ transform: translateY(1px) }
-
-    @media (max-width: 900px){
-      .layout{ flex-direction: column; align-items: stretch }
-      .box{ width: 100% }
-    }
-  </style>
+  h1,h2{text-align:center;font-family:consolas;}
+  .layout{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .box{ background:rgba(255,255,255,0.7); padding:18px; width:420px; max-height:60vh; overflow:auto; border:1px solid rgba(0,0,0,0.1); border-radius:0; }
+  .count{ color:#666; font-size:0.9rem; margin-top:6px; }
+  ol{ padding-left:20px; margin:8px 0 0 0; } li{ margin-bottom:8px; }
+  .controls{ display:flex; justify-content:center; margin-top:22px; }
+  .copy-btn{ background:rgb(39,221,39); color:white; border:none; padding:12px 22px; font-weight:600; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.15); }
+  .copy-btn:active{ transform:translateY(1px); }
+  @media (max-width:900px){ .layout{ flex-direction:column; align-items:stretch; } .box{ width:100%; } }
+</style>
 </head>
 <body>
-  <div class="area">
-    <ul class="circles">
-      <li></li><li></li><li></li><li></li><li></li>
-      <li></li><li></li><li></li><li></li><li></li>
-    </ul>
-  </div>
+<div class="area">
+  <ul class="circles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
+</div>
 
-  <div class="page-container">
-    <h1>Keputusan Kehadiran</h1>
+<div class="page-container">
+  <h1>Keputusan Kehadiran</h1>
+  <h2 id="date-display"></h2>
 
-    <div class="layout">
-      <div class="box" aria-labelledby="hadir-title">
-        <h2 id="hadir-title">Hadir</h2>
-        <div class="count" id="hadir-count">(0)</div>
-        <ol id="present-list"></ol>
-      </div>
-
-      <div class="box" aria-labelledby="absent-title">
-        <h2 id="absent-title">Tidak Hadir</h2>
-        <div class="count" id="absent-count">(0)</div>
-        <ol id="absent-list"></ol>
-      </div>
+  <div class="layout">
+    <div class="box" aria-labelledby="hadir-title">
+      <h2 id="hadir-title">Hadir</h2>
+      <div class="count" id="hadir-count">(0)</div>
+      <ol id="present-list"></ol>
     </div>
-
-    <!-- BUTANG DIPINDAHKAN KE SINI -->
-    <div class="controls">
-      <button id="copy-hadir-btn" class="copy-btn" onclick="copyList('present-list','Hadir')">Salin Hadir</button>
-      <button id="copy-absent-btn" class="copy-btn" onclick="copyList('absent-list','Tidak Hadir')">Salin Tidak Hadir</button>
+    <div class="box" aria-labelledby="absent-title">
+      <h2 id="absent-title">Tidak Hadir</h2>
+      <div class="count" id="absent-count">(0)</div>
+      <ol id="absent-list"></ol>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    const present = JSON.parse(localStorage.getItem("presentList")) || [];
-    const absent = JSON.parse(localStorage.getItem("absentList")) || [];
+  <div class="controls">
+    <button id="copy-all-btn" class="copy-btn">Salin Semua Kehadiran</button>
+  </div>
+</div>
 
-    const presentList = document.getElementById("present-list");
-    const absentList = document.getElementById("absent-list");
+<script>
+const present = JSON.parse(localStorage.getItem("presentList")) || [];
+const absent = JSON.parse(localStorage.getItem("absentList")) || [];
+const tarikh = localStorage.getItem("attendanceDate") || "(Tiada tarikh)";
+const kelas = "5B";
 
-    present.forEach(name => {
-      const li = document.createElement("li");
-      li.textContent = name;
-      presentList.appendChild(li);
-    });
+document.getElementById("date-display").textContent = `Kelas ${kelas} - Tarikh: (${tarikh})`;
 
-    absent.forEach(entry => {
-      const li = document.createElement("li");
-      if (entry && typeof entry === 'object' && 'name' in entry) {
-        li.textContent = `${entry.name} (${entry.reason})`;
-      } else {
-        li.textContent = String(entry);
-      }
-      absentList.appendChild(li);
-    });
+const presentList = document.getElementById("present-list");
+const absentList = document.getElementById("absent-list");
 
-    // update counts
-    document.getElementById('hadir-count').textContent = `(${present.length})`;
-    document.getElementById('absent-count').textContent = `(${absent.length})`;
+present.forEach(name=>{
+  const li=document.createElement("li"); li.textContent=name; presentList.appendChild(li);
+});
+absent.forEach(entry=>{
+  const li=document.createElement("li"); li.textContent=`${entry.name} (${entry.reason})`; absentList.appendChild(li);
+});
+document.getElementById('hadir-count').textContent=`(${present.length})`;
+document.getElementById('absent-count').textContent=`(${absent.length})`;
 
-    async function copyList(listId, label) {
-      const items = Array.from(document.getElementById(listId).querySelectorAll('li'))
-        .map((li, i) => `${i+1}. ${li.textContent}`);
-      let parts = [label + ':'];
-      if (items.length) parts = parts.concat(items);
-      else parts.push('(Tiada)');
-      const finalText = parts.join('\n');
+document.getElementById("copy-all-btn").addEventListener("click", async ()=>{
+  let text=`Kelas ${kelas}\nTarikh : (${tarikh})\n\nSenarai Kehadiran\n`;
+  present.forEach((name,i)=>{ text+=`${i+1}. ${name}\n`; });
+  text+="\nSenarai Tidak Hadir\n";
+  absent.forEach((entry,i)=>{ text+=`${i+1}. ${entry.name} (${entry.reason})\n`; });
 
-      const shouldCopy = await Swal.fire({
-        title: `Salin ${label}?`,
-        text: `Adakah anda mahu menyalin senarai ${label.toLowerCase()} ke papan keratan?`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Ya, salin',
-        cancelButtonText: 'Batal'
-      });
-      if (!shouldCopy.isConfirmed) return;
-
-      const btnId = listId === 'present-list' ? 'copy-hadir-btn' : 'copy-absent-btn';
-      const btn = document.getElementById(btnId);
-      btn.disabled = true;
-      const orig = btn.textContent;
-      btn.textContent = 'Salin...';
-
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(finalText);
-        } else {
-          throw new Error('Clipboard API not available');
-        }
-        await Swal.fire({ icon: 'success', title: 'Berjaya!', text: `Senarai ${label} telah disalin.` });
-      } catch (err) {
-        const ta = document.createElement('textarea');
-        ta.value = finalText;
-        ta.style.position = 'fixed';
-        ta.style.left = '-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        try {
-          document.execCommand('copy');
-          await Swal.fire({ icon: 'success', title: 'Berjaya (fallback)!', text: `Senarai ${label} telah disalin.` });
-        } catch (e) {
-          await Swal.fire({ icon: 'error', title: 'Gagal!', html: `<pre>${finalText}</pre>` });
-        }
-        document.body.removeChild(ta);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = orig;
-      }
-    }
-  </script>
+  try{ await navigator.clipboard.writeText(text);
+        await Swal.fire({icon:'success',title:'Berjaya!',text:'Senarai telah disalin ke papan keratan.'});
+  }catch(err){
+    const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    await Swal.fire({icon:'success',title:'Berjaya (fallback)!',text:'Senarai telah disalin.'});
+  }
+});
+</script>
 </body>
 </html>
